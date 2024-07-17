@@ -43,7 +43,7 @@
                     <li><a href="">Bộ Sưu Tập</a></li>
                     <li><a href="">Bộ phối</a></li>
                     <li><a href="">Bài viết</a></li>
-                    <li><a href="">Chăm sóc khách hàng</a></li>
+                    <li><a href="{{ route('product.index') }}">Quản lý sản phẩm</a></li>
                     <li><a href="">Tuyển dụng</a></li>
                     <li><a href="">Liên hệ</a></li>
                 </ul>

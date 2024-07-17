@@ -47,7 +47,7 @@ class HomeController extends Controller
 
     public function pro_detail($id)
     {
-        $pro = Products::where('id', $id)->first();
+        $pro = Products::find($id);
         $cate = Category::all();
         return view('product.detail', [
             'product' => $pro,

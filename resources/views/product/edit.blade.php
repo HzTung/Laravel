@@ -12,7 +12,7 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">Tên Sản Phẩm</label>
                             <input type="text" name="name_sp" class="form-control w-25" id="exampleInputEmail1"
-                                aria-describedby="emailHelp" placeholder="">
+                                aria-describedby="emailHelp" placeholder="" value="{{ $pro->name_sp }}">
                             @error('name_sp')
                                 <span style="color:red">{{ $message }}</span>
                             @enderror
@@ -21,7 +21,7 @@
                         <div class="form-group">
                             <label for="exampleInputPassword1">Số Lượng</label>
                             <input type="text" name="soluong" class="form-control w-25" id="exampleInputEmail1"
-                                aria-describedby="emailHelp" placeholder="">
+                                aria-describedby="emailHelp" placeholder="" value="{{ $pro->soluong }}">
                             @error('soluong')
                                 <span style="color:red">{{ $message }}</span>
                             @enderror
@@ -30,7 +30,7 @@
                             <label for="exampleInputPassword1">Giá</label>
 
                             <input type="text" name="price" class="form-control w-25" id=""
-                                aria-describedby="emailHelp" placeholder="">
+                                aria-describedby="emailHelp" placeholder="" value="{{ $pro->price }}">
                             @error('price')
                                 <span style="color:red">{{ $message }}</span>
                             @enderror
@@ -38,7 +38,7 @@
                         <div class="form-group">
                             <label for="exampleInputPassword1">Mô Tả</label>
                             <input type="text" name="mota" class="form-control w-25" id="exampleInputEmail1"
-                                aria-describedby="emailHelp" placeholder="">
+                                aria-describedby="emailHelp" placeholder="" value="{{ $pro->mota }}">
                             @error('mota')
                                 <span style="color:red">{{ $message }}</span>
                             @enderror
@@ -59,7 +59,7 @@
                                 name="category_id">
                                 <option selected value="
                             ">
-                                    Danh Muc
+                                    {{ $cate->where('id', $pro->category_id)->first()->name_category }}
                                 </option>
                                 @foreach ($cate as $item)
                                     <option value="{{ $item->id }}">{{ $item->name_category }}</option>

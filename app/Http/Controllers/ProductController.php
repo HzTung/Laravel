@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Products;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -12,7 +13,12 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $pro = Products::all();
+        $cate = Category::all();
+        return view('product.index', [
+            'listProduct' => $pro,
+            'cate' => $cate,
+        ]);
     }
 
     /**
@@ -49,8 +55,10 @@ class ProductController extends Controller
     public function edit(string $id)
     {
         $cate = Category::all();
+        $pro = Products::find($id);
         return view('product.edit', [
             'cate' => $cate,
+            'pro' => $pro,
         ]);
     }
 
