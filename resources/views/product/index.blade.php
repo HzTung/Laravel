@@ -44,27 +44,25 @@
                                 {{'NULL'}}
                             @endif --}}
                                 </td>
-                                <td class="row ">
-                                    <a class='col-6 btn btn-default mr-2'
+                                <td class="row " style="height:83px">
+                                    <a class='col-6 btn btn-defautl mr-2'
                                         href='{{ route('product.edit', $row->id) }} '>Edit</a>
-                                    {{-- <form  action="{{ route('products.destroy',$row->id) }}" method="post">
-                                @method('delete')
-                                @csrf
-                                <button class='btn btn-danger' type="submit" onclick="return confirm('Bạn có chắc chắn muốn xóa?')">Delete</button>
-                         
-                            </form> --}}
-                                    <a href="{{ route('product.destroy', $row->id) }}" class="col-6 btn btn-danger"
-                                        data-confirm-delete="true">Delete</a>
+                                    <form action="{{ route('product.destroy', $row->id) }}" method="post" class="col-6 ">
+                                        @method('delete')
+                                        @csrf
+                                        <button class='btn btn-danger ' type="submit"
+                                            onclick="return confirm('Bạn có chắc chắn muốn xóa?')">Delete</button>
 
+                                    </form>
+                                    {{-- <a href="{{ route('product.destroy', $row->id) }}" class="col-6 btn btn-danger"
+                                        data-confirm-delete="true">Delete</a> --}}
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
-            {{-- <div class="d-flex justify-content-end">
-                {{ $listProduct->links() }}
-            </div> --}}
+
         </div>
     </div>
 @endsection

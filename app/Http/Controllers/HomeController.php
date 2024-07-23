@@ -19,6 +19,7 @@ class HomeController extends Controller
             ID: '1',
             Name: 'Tung',
             ClassCode: 'Web05',
+
         );
 
         return view('welcome', compact('student'));

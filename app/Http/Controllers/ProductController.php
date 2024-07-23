@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Products;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -26,7 +27,6 @@ class ProductController extends Controller
      */
     public function create()
     {
-
         $cate = Category::all();
         return view('product.add', [
             'cate' => $cate,
@@ -38,7 +38,29 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name_sp' => 'required|unique:product',
+            'soluong' => 'required',
+            'price' => 'required',
+            'mota' => 'required',
+            'img' => 'required',
+            'category_id' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withInput()->withErrors($validator);
+        } else {
+            $validatedData = $validator->validated();
+            $fileName = $request->file('img')->getClientOriginalName();
+            $request->img->move('uploads/', $fileName);
+            $validatedData['img'] = $fileName;
+            try {
+                Products::create($validatedData);
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
+            return redirect()->route('product.index');
+        }
     }
 
     /**
@@ -67,7 +89,31 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name_sp' => 'required',
+            'soluong' => 'required',
+            'price' => 'required',
+            'mota' => 'required',
+            'img' => '',
+            'category_id' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return  back()->withInput()->withErrors($validator);
+        } else {
+            $validatedData = $validator->validated();
+            if ($request->hasFile('img')) {
+                $fileName = $request->file('img')->getClientOriginalName();
+                $request->img->move('uploads/', $fileName);
+                $validatedData['img'] = $fileName;
+            }
+            try {
+                Products::where('id', $id)->update($validatedData);
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
+            return redirect()->route('product.index');
+        }
     }
 
     /**
@@ -75,6 +121,11 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            Products::destroy($id);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+        return redirect()->route('product.index');
     }
 }

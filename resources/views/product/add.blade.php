@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <form method="post" action="" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('product.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="exampleInputEmail1">Tên Sản Phẩm</label>
@@ -19,8 +19,8 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Số Lượng</label>
-                            <input type="text" name="quantity" class="form-control w-25" id="exampleInputEmail1"
-                                aria-describedby="emailHelp" placeholder="" value="{{ old('quantity') }}">
+                            <input type="text" name="soluong" class="form-control w-25" id="exampleInputEmail1"
+                                aria-describedby="emailHelp" placeholder="" value="{{ old('soluong') }}">
                             @error('quantity')
                                 <span style="color:red">{{ $message }}</span>
                             @enderror
@@ -53,8 +53,8 @@
                         </div>
                         <div class="form-group ">
                             <label for="exampleInputPassword1">Danh Mục</label>
-                            <select class="form-select w-25" aria-label="Default select example" name="cate">
-                                <option selected value="{{ old('cate') }}">Open this select menu</option>
+                            <select class="form-select w-25" aria-label="Default select example" name="category_id">
+                                <option selected value="{{ old('category_id') }}">Open this select menu</option>
                                 @foreach ($cate as $item)
                                     <option value="{{ $item->id }}">{{ $item->name_category }}</option>
                                 @endforeach

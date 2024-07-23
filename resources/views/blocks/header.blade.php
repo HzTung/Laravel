@@ -14,12 +14,11 @@
                     @if (Auth::check())
                         <form action="{{ route('logout') }}" method="post">
                             @csrf
-                            @method('delete')
                             <button type="submit" class="btn btn-primary " style="border: unset">Đăng xuất</button>
                         </form>
                     @else
                         <a href="{{ route('login') }}" class="btn btn-primary mx-2 ">Đăng Nhập</a>
-                        <a href="{{ route('signup') }}" class="btn btn-primary  ">Đăng Ký</a>
+                        <a href="{{ route('register') }}" class="btn btn-primary  ">Đăng Ký</a>
                     @endif
                 </div>
             </div>
