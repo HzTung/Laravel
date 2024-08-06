@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\Products;
+use App\Http\ViewModels\ProductViewModel;
+use App\Infrastructure\Models\Category;
+use App\Infrastructure\Models\Products;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -14,12 +16,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $pro = Products::all();
-        $cate = Category::all();
-        return view('product.index', [
-            'listProduct' => $pro,
-            'cate' => $cate,
-        ]);
+        $productViewModel = new ProductViewModel();
+        return view('product.index', compact('productViewModel'));
     }
 
     /**
@@ -27,10 +25,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $cate = Category::all();
-        return view('product.add', [
-            'cate' => $cate,
-        ]);
+        $productViewModel = new ProductViewModel();
+        return view('product.add', compact('productViewModel'));
     }
 
     /**
@@ -48,7 +44,11 @@ class ProductController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return back()->withInput()->withErrors($validator);
+            // return back()->withInput()->withErrors($validator);
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()
+            ], 422);
         } else {
             $validatedData = $validator->validated();
             $fileName = $request->file('img')->getClientOriginalName();
@@ -56,10 +56,16 @@ class ProductController extends Controller
             $validatedData['img'] = $fileName;
             try {
                 Products::create($validatedData);
+                return response()->json([
+                    'success' => true,
+                ], 201);
+                // return redirect()->route('product.index');
             } catch (\Throwable $th) {
-                //throw $th;
+                return response()->json([
+                    'success' => false,
+                    'errors' => $th->getMessage(),
+                ], 500);
             }
-            return redirect()->route('product.index');
         }
     }
 
@@ -68,7 +74,8 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $data = Products::find($id);
+        return response()->json($data, 200);
     }
 
     /**
@@ -76,12 +83,10 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        $cate = Category::all();
         $pro = Products::find($id);
-        return view('product.edit', [
-            'cate' => $cate,
-            'pro' => $pro,
-        ]);
+        $productViewModel = new ProductViewModel($pro);
+
+        return view('product.edit', compact('productViewModel'));
     }
 
     /**

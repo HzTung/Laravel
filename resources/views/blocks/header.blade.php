@@ -31,9 +31,9 @@
                             Cửa hàng
                         </a>
                         <ul class="dropdown-menu">
-                            @foreach ($cate as $k => $v)
+                            @foreach ($productViewModel->categories() as $category)
                                 <li class=""> <a class="dropdown-item d-flex justify-content-between"
-                                        href="">{{ $v->name_category }}
+                                        href="">{{ $category->name_category }}
                                         <i class="ti-angle-right"></i></a>
                                 </li>
                             @endforeach

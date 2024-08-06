@@ -55,7 +55,7 @@
                             <label for="exampleInputPassword1">Danh Mục</label>
                             <select class="form-select w-25" aria-label="Default select example" name="category_id">
                                 <option selected value="{{ old('category_id') }}">Open this select menu</option>
-                                @foreach ($cate as $item)
+                                @foreach ($productViewModel->categories() as $item)
                                     <option value="{{ $item->id }}">{{ $item->name_category }}</option>
                                 @endforeach
                             </select>

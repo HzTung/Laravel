@@ -23,7 +23,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($listProduct as $product => $row)
+                        @foreach ($productViewModel->product() as $product => $row)
                             <tr>
                                 <th scope='row'>{{ $product + 1 }}</th>
                                 <td>{{ $row->name_sp }}</td>
@@ -33,7 +33,7 @@
                                 <td><img style="width:4rem;" src="{{ asset('uploads/' . $row->img) }}"></td>
                                 <td>
                                     @if (isset($row->category_id))
-                                        {{ $cate->where('id', $row->category_id)->first()->name_category }}
+                                        {{ $productViewModel->categories()->where('id', $row->category_id)->first()->name_category }}
                                     @else
                                         {{ 'NULL' }}
                                     @endif

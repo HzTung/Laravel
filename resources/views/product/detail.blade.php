@@ -10,14 +10,14 @@
             <div class="text-heading">
                 <a href="{{ route('home') }}">Trang Chủ</a> /
                 <a href="">Products</a> /
-                {{ $product->name_sp }}
+                {{ $productViewModel->product->name_sp }}
             </div>
             <div class="product-main">
-                <img src="{{ asset('uploads/' . $product->img) }}" alt="">
+                <img src="{{ asset('uploads/' . $productViewModel->product->img) }}" alt="">
                 <div class="product-content">
-                    <p class="name-product">{{ $product->name_sp }}</p>
+                    <p class="name-product">{{ $productViewModel->product->name_sp }}</p>
                     <div class="price-product">
-                        {{ $product->price }} đ
+                        {{ $productViewModel->product->price }} đ
                     </div>
 
                     <form action="" method="post">

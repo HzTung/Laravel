@@ -2,7 +2,7 @@
     <div class="container">
         <div class="collection-content">
             <div class="collection-content_container">
-                @foreach ($proAll as $k => $v)
+                @foreach ($productViewModel->product() as $k => $v)
                     <a href="{{ route('pro.detail', $v->id) }}" class="collection-content_item">
                         <div class="collection-item_img">
                             <img src="{{ asset('uploads/' . $v->img) }}" alt="">

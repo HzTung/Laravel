@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\Products;
+use App\Http\ViewModels\ProductViewModel;
+use App\Infrastructure\Models\Category;
+use App\Infrastructure\Models\Products;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -32,13 +33,8 @@ class HomeController extends Controller
 
     function index()
     {
-
-        $pro = Products::all();
-        $cate = Category::all();
-        return view('index', [
-            'proAll' => $pro,
-            'cate' => $cate,
-        ]);
+        $productViewModel = new ProductViewModel();
+        return view('index', compact('productViewModel'));
     }
 
     function show($id)
@@ -48,11 +44,8 @@ class HomeController extends Controller
 
     public function pro_detail($id)
     {
-        $pro = Products::find($id);
-        $cate = Category::all();
-        return view('product.detail', [
-            'product' => $pro,
-            'cate' => $cate,
-        ]);
+        $product = Products::find($id);
+        $productViewModel = new ProductViewModel($product);
+        return view('product.detail', compact('productViewModel'));
     }
 }
